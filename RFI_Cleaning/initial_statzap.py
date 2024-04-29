@@ -750,7 +750,7 @@ def find_bins_subarrays_with_nan(arr):
     nan_indexes = np.where(np.all(np.isnan(arr), axis=0))[0]
     return nan_indexes  # Return the list of indexes with all NaN values
 
-def clean_and_plot(file_path, zapped_file, threshold_dedisp, threshold_disp, on_pulse_start, on_pulse_end, folded = False, \
+def clean_and_plot(file_path, threshold_dedisp, threshold_disp, on_pulse_start, on_pulse_end, folded = False, \
                    show_stats = False, show_mean_intensity = False, show_all_plots = False, show_separate_zaps = False,\
                    plot_compact_stats = False, plot_compact_initial_stats = False, iterate = False):   
 
@@ -765,7 +765,7 @@ def clean_and_plot(file_path, zapped_file, threshold_dedisp, threshold_disp, on_
     #De-Dispersed Data
     file_data, freq_mhz, dm, center_freq, period = Read_File(file_path)
     off_pulse = Select_Off_Pulse(file_data, on_pulse_start, on_pulse_end)
-    zapped_off_pulse = Zap_Bad_Freqs(off_pulse, zapped_file, read_file = True) #Zap known channels
+    #zapped_off_pulse = Zap_Bad_Freqs(off_pulse, zapped_file, read_file = True) #Zap known channels
     bin_num = len(file_data[1]) #This variable is often used to determine the time resolution
     
     #Dispersed Data
@@ -786,7 +786,7 @@ def clean_and_plot(file_path, zapped_file, threshold_dedisp, threshold_disp, on_
                         plot_title_disp = 'Dispersed Un-Cleaned Data') 
         
     #De-Dispersed Analysis
-    dedispersed_clean_data = cleanRFI_Narrowband(zapped_off_pulse, threshold_dedisp)
+    dedispersed_clean_data = cleanRFI_Narrowband(off_pulse, threshold_dedisp)
     median_arr, std_arr, kurtosis_arr, skew_arr = Calculate_4Stats(dedispersed_clean_data)
     
     
@@ -828,8 +828,8 @@ def clean_and_plot(file_path, zapped_file, threshold_dedisp, threshold_disp, on_
     zapped_freqs_from_result_array = find_freq_subarrays_with_nan(result_array)
     np.savetxt('removed_freq_indexes.txt', np.array(zapped_freqs_from_result_array, dtype=int), fmt='%d')
     #Here we print out the list of zapped bins
-    zapped_bins_from_result_array = find_bins_subarrays_with_nan(result_array_disp)
-    np.savetxt('removed_bin_indexes.txt', np.array(zapped_bins_from_result_array, dtype=int), fmt='%d')
+    #zapped_bins_from_result_array = find_bins_subarrays_with_nan(result_array_disp)
+    #np.savetxt('removed_bin_indexes.txt', np.array(zapped_bins_from_result_array, dtype=int), fmt='%d')
 
     if show_all_plots == True:
         freq_phase_plot(result_array, title = 'RFI-Cleaned Data')
@@ -867,10 +867,10 @@ def main():
 
     # Your code logic here...
     #file_path = '/srv/storage_11/galc/UBB/jtremblay/singlepulse/pulse_3280414870.ar'
-    zapped_file = 'zapped_freqs.txt'
+    #zapped_file = 'zapped_freqs.txt'
     #file_path = '/srv/storage_11/galc/UBB/jtremblay/singlepulse/filtool_cleaned_files/pulse_3280414829.ar'
     #file_path  = '/srv/storage_11/galc/UBB/jtremblay/20230921/J1713+0747/folded_data/1614.84375/21:32:22_0016.ar'
-    result_array = clean_and_plot(file_path, zapped_file, threshold_dedisp = 0.0001, threshold_disp = 0.0001, on_pulse_start = 450, on_pulse_end = 530, \
+    result_array = clean_and_plot(file_path, threshold_dedisp = 0.0001, threshold_disp = 0.0001, on_pulse_start = 520, on_pulse_end = 625, \
                folded = False, plot_compact_initial_stats = False, plot_compact_stats = False) #threshold_dedisp = 5, threshold_disp = 15
     
     zapped_freqs_from_result_array = find_freq_subarrays_with_nan(result_array)

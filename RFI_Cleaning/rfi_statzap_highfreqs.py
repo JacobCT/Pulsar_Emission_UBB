@@ -829,7 +829,7 @@ def clean_and_plot(file_path, zapped_file, threshold_dedisp, threshold_disp, on_
     np.savetxt('removed_freq_indexes.txt', np.array(zapped_freqs_from_result_array, dtype=int), fmt='%d')
     #Here we print out the list of zapped bins
     zapped_bins_from_result_array = find_bins_subarrays_with_nan(result_array_disp)
-    np.savetxt('removed_bin_indexes.txt', np.array(zapped_bins_from_result_array, dtype=int), fmt='%d')
+    #np.savetxt('removed_bin_indexes.txt', np.array(zapped_bins_from_result_array, dtype=int), fmt='%d')
 
     if show_all_plots == True:
         freq_phase_plot(result_array, title = 'RFI-Cleaned Data')
@@ -870,7 +870,7 @@ def main():
     zapped_file = 'zapped_freqs.txt'
     #file_path = '/srv/storage_11/galc/UBB/jtremblay/singlepulse/filtool_cleaned_files/pulse_3280414829.ar'
     #file_path  = '/srv/storage_11/galc/UBB/jtremblay/20230921/J1713+0747/folded_data/1614.84375/21:32:22_0016.ar'
-    result_array = clean_and_plot(file_path, zapped_file, threshold_dedisp = 0.0001, threshold_disp = 0.0001, on_pulse_start = 450, on_pulse_end = 530, \
+    result_array = clean_and_plot(file_path, zapped_file, threshold_dedisp = 0.0001, threshold_disp = 1000000000000000, on_pulse_start = 450, on_pulse_end = 530, \
                folded = False, plot_compact_initial_stats = False, plot_compact_stats = False) #threshold_dedisp = 5, threshold_disp = 15
     
     zapped_freqs_from_result_array = find_freq_subarrays_with_nan(result_array)

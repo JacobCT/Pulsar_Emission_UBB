@@ -1,5 +1,5 @@
 #!/bin/bash
-#This script was made to zap the wideband RFI (RFI in bins). It is to be used inside the main rfi zapping script (statzap.sh).
+
 # Check if the correct number of arguments is provided
 if [ "$#" -ne 2 ]; then
     echo "Usage: $0 <bad_bin_list> <arfile>"

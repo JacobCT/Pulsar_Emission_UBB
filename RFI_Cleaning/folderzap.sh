@@ -1,7 +1,11 @@
 #!/bin/bash
-#This script is to help in determining the frequency channels which will always be bad in an observation. It will automatically go through each file in a folder and allow you to clean the file manually. Once you reached the dsired number of files to clean, you can force stop the script and you will be left with .txt files that contain the list of all the bad frequencies in that observation.
+#for FILENAME in *.ar; do
 
-for FILENAME in *.ar; do
+# Shuffle the list of filenames
+shuffled_files=($(ls -1 *.ar | shuf))
+
+# Iterate over shuffled files
+for FILENAME in "${shuffled_files[@]}"; do
 	NAME=${FILENAME}
 	echo " "
 

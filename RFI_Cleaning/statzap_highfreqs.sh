@@ -32,7 +32,7 @@ for FILENAME in *.ar; do
     NAME=${FILENAME}
     
     # Run the python script
-    python3 "$script_path"rfi_statzap.py "$NAME"
+    python3 "$script_path"rfi_statzap_highfreqs.py "$NAME"
 
     # Run the paz command to remove narrowband RFI found in pythong script
     paz -e .clean -k removed_freq_indexes.txt "$NAME"
@@ -41,7 +41,7 @@ for FILENAME in *.ar; do
     CLEAN_NAME="${NAME%.*}.clean"    
 
     # Run the script which uses the paz command to remove wideband RFI found in pythong script
-    bash "$script_path"bin_zapping.sh removed_bin_indexes.txt "$CLEAN_NAME"
+    #bash "$script_path"bin_zapping.sh removed_bin_indexes.txt "$CLEAN_NAME"
 
     #Perform the lawn mowing cleaning from PSRCHIVE (algorithm that replaces spikey phase bins with the local median plus noise)
     #paz -e "${CLEAN_NAME}.L" -L $CLEAN_NAME

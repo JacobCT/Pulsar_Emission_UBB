@@ -57,12 +57,9 @@ def export_list_to_txt(lst, filename):
 file_list = []
 freq_list = []
 #Define the path of the file
-#We can either set the path:
-#path = '/srv/storage_11/galc/UBB/jtremblay/20231227/singlepulse/search2/'
-#Or we can use the current directory:
-current_directory = os.getcwd()
-path = str(current_directory) + "/"
-#print("File path:", path)
+#path = '/srv/storage_11/galc/UBB/jtremblay/20231227/singlepulse/'
+workingdir = os.getcwd()
+path = workingdir + "/"
 
 #Acess the directory
 files = os.listdir(path)
@@ -92,6 +89,6 @@ for i in bad_index:
 print(bad_index)
 #print(bad_freqs)
 
-export_list_to_txt(bad_index, 'B0355+54_zapped_freqs.txt')
+export_list_to_txt(bad_index, 'zapped_freqs.txt')
 #export_list_to_txt(bad_freqs, 'bad_freqs_python.txt')
-print('Array exported to file: B0355+54_zapped_freqs.txt')
+print('Array exported to file: zapped_freqs.txt')
