@@ -34,7 +34,7 @@ for FILENAME in *.ar; do
     # Run the python script
     python3 "$script_path"rfi_statzap.py "$NAME"
 
-    # Run the paz command to remove narrowband RFI found in pythong script
+    # Run the paz command to remove narrowband RFI found in python script
     paz -e .clean -k removed_freq_indexes.txt "$NAME"
 
     #Now we want to remove the old .ar extension to our NAME variable and replace it by the .clean extension
